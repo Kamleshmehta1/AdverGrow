@@ -14,13 +14,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { PATHS } from '../routes/path';
 
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 export default function Header(props) {
+  const navigate = useNavigate();
   const { window } = props;
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -81,6 +83,37 @@ export default function Header(props) {
           >
             USERS LIST
           </Typography>
+
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', sm: 'block', letterSpacing: '1px' },
+            }}
+          >
+            <Button
+              sx={{ color: '#fff' }}
+              onClick={() => {
+                navigate(PATHS.USERS_LIST.fullPath);
+              }}
+            >
+              USERS
+            </Button>
+          </Box>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', sm: 'block', letterSpacing: '1px' },
+            }}
+          >
+            <Button
+              sx={{ color: '#fff' }}
+              onClick={() => {
+                navigate(PATHS.ADD_USER.fullPath);
+              }}
+            >
+              ADD USERS
+            </Button>
+          </Box>
 
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map(({ name, onClick }) => {
