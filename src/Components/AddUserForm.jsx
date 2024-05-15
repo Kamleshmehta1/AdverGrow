@@ -44,9 +44,9 @@ function AddUserForm() {
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     defaultValues: {
-      email: updateUser?.email || 'k@g.com',
-      name: updateUser?.name || 'ss',
-      phone: updateUser?.phone || 'ss',
+      email: updateUser?.email || '',
+      name: updateUser?.name || '',
+      phone: updateUser?.phone || '',
       isActive: updateUser?.isActive || false,
     },
     resolver: yupResolver(schema),

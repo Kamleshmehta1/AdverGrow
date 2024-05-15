@@ -17,11 +17,12 @@ import PersonImage from '../assets/recepie_img.jpg';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../routes/path';
+import Brightness1Icon from '@mui/icons-material/Brightness1';
 
 function HandleCard({ data, userIcon, userData }) {
   const navigate = useNavigate();
 
-  const { name, email, phone, id } = data;
+  const { name, email, phone, id, isActive } = data;
 
   const handleEdit = useCallback(
     (data) => {
@@ -66,6 +67,15 @@ function HandleCard({ data, userIcon, userData }) {
         >
           PHONE: {phone}
         </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          letterSpacing={'1px'}
+          sx={{ display: 'flex', alignItems: 'center' }}
+        >
+          <Brightness1Icon color={isActive ? 'success' : 'default'} /> User is
+          active
+        </Typography>
       </CardContent>
       <CardActions disableSpacing sx={{ mt: 'auto' }}>
         <Stack
@@ -104,6 +114,7 @@ HandleCard.propTypes = {
   userIcon: PropTypes.string,
   id: PropTypes.number,
   userData: PropTypes.any,
+  isActive: PropTypes.any,
 };
 
 export default HandleCard;
