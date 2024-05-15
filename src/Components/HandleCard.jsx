@@ -26,8 +26,13 @@ function HandleCard({ data, userIcon, userData }) {
 
   const handleEdit = useCallback(
     (data) => {
+      const isActive = data?.isActive ? true : false;
       navigate(PATHS.ADD_USER.fullPath, {
-        state: { updateData: data, state: 'update', allUsersData: userData },
+        state: {
+          updateData: { ...data, isActive },
+          state: 'update',
+          allUsersData: userData,
+        },
       });
     },
     [navigate, userData]
@@ -95,7 +100,7 @@ function HandleCard({ data, userIcon, userData }) {
           <Stack direction="row">
             <IconButton
               color="primary"
-              onClick={() => handleEdit({ id, name, email, phone })}
+              onClick={() => handleEdit({ id, name, email, phone, isActive })}
             >
               <Stack justifyContent="center" alignItems="center">
                 <EditIcon />
