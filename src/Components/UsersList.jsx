@@ -2,14 +2,33 @@ import { Grid, Stack } from '@mui/material';
 import MuiContainer from '../Layout/MuiContainer';
 import HandleCard from './HandleCard';
 import useFetchData from './useFetchData';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import RHFButton from '../FormComponents/RHFButton';
 import { PATHS } from '../routes/path';
+import LoadingScreen from '../utils/LoadingScreen';
+import { useMemo } from 'react';
 
 function UsersList() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { data, isLoading } = useFetchData();
-  console.log(isLoading, data);
+
+  const userData = useMemo(() => {
+    const locationData = location?.state?.data;
+
+    if (location?.state?.state === 'add') {
+      return locationData;
+    } else if (location?.state?.state === 'update') {
+      return locationData;
+    } else {
+      return data;
+    }
+  }, [data, location]);
+
+  if (isLoading && userData) {
+    return <LoadingScreen />;
+  }
 
   return (
     <MuiContainer maxWidth="lg">
@@ -19,12 +38,16 @@ function UsersList() {
             <RHFButton
               title="Add User"
               fullWidth={false}
-              onClick={() => navigate(PATHS.ADD_USER.fullPath)}
+              onClick={() =>
+                navigate(PATHS.ADD_USER.fullPath, {
+                  state: { addData: userData || [] },
+                })
+              }
             />
           </Stack>
         </Grid>
 
-        {(data || [])?.map((items, index) => {
+        {(userData || [])?.map?.((items, index) => {
           const { name } = items;
           const userIcon = name?.substring(0, 1)?.toUpperCase();
 
@@ -39,7 +62,11 @@ function UsersList() {
               key={index}
               ele={items}
             >
-              <HandleCard data={items} userIcon={userIcon} />
+              <HandleCard
+                data={items}
+                userIcon={userIcon}
+                userData={userData}
+              />
             </Grid>
           );
         })}

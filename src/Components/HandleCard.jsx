@@ -14,9 +14,23 @@ import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonImage from '../assets/recepie_img.jpg';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../routes/path';
 
-function HandleCard({ data, userIcon }) {
-  const { username, email, phone } = data;
+function HandleCard({ data, userIcon, userData }) {
+  const navigate = useNavigate();
+
+  const { name, email, phone, id } = data;
+
+  const handleEdit = useCallback(
+    (data) => {
+      navigate(PATHS.ADD_USER.fullPath, {
+        state: { updateData: data, state: 'update', allUsersData: userData },
+      });
+    },
+    [navigate, userData]
+  );
 
   return (
     <Card
@@ -33,7 +47,7 @@ function HandleCard({ data, userIcon }) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={username}
+        title={name}
         subheader={email}
       />
       <CardMedia
@@ -69,7 +83,10 @@ function HandleCard({ data, userIcon }) {
             </IconButton>
           </Stack>
           <Stack direction="row">
-            <IconButton color="primary" onClick={() => {}}>
+            <IconButton
+              color="primary"
+              onClick={() => handleEdit({ id, name, email, phone })}
+            >
               <Stack justifyContent="center" alignItems="center">
                 <EditIcon />
                 <Typography variant="caption">Edit</Typography>
@@ -85,6 +102,8 @@ function HandleCard({ data, userIcon }) {
 HandleCard.propTypes = {
   data: PropTypes.any,
   userIcon: PropTypes.string,
+  id: PropTypes.number,
+  userData: PropTypes.any,
 };
 
 export default HandleCard;

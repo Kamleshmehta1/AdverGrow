@@ -99,21 +99,6 @@ export default function Header(props) {
               USERS
             </Button>
           </Box>
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: 'none', sm: 'block', letterSpacing: '1px' },
-            }}
-          >
-            <Button
-              sx={{ color: '#fff' }}
-              onClick={() => {
-                navigate(PATHS.ADD_USER.fullPath);
-              }}
-            >
-              ADD USERS
-            </Button>
-          </Box>
 
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map(({ name, onClick }) => {

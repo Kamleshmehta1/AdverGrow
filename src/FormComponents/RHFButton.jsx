@@ -33,7 +33,7 @@ RHFButton.propTypes = {
   others: PropTypes.any,
   isLoading: PropTypes.bool,
   size: PropTypes.string,
-  fullWidth: PropTypes.string,
+  fullWidth: PropTypes.bool,
 };
 
 export default RHFButton;
